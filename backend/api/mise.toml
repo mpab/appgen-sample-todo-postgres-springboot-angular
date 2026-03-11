@@ -1,0 +1,12 @@
+[tools]
+java = "25"
+maven = "latest"
+
+[tasks.install]
+run = "mvn clean install && mvn wrapper:wrapper"
+
+[tasks.start]
+run = "mvn spring-boot:run"
+
+[tasks.mvn]
+run = "mvn"
