@@ -4,5 +4,5 @@
 
 "./seed-table-assignee-enum"
 "./seed-table-status-enum"
-"./seed-table-task"
 "./seed-table-task-fields-enum"
+"./seed-table-task"

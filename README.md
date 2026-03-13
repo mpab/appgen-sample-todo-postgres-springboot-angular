@@ -13,26 +13,19 @@ API <http://localhost:3000/api-docs>
 ## Application Structure
 
 ```text
-configure/
-├── csv_raw             # CSV source data
-│   └── PascalCase.csv
-├── generate-schema     # generate schema from raw CSV
-├── schema_csv          # CSV schema (seed data)
-│   └── snake_case.csv
-├── schema_json         # JSON schema
-│   └── snake_case.json
-├── using-csv           # use to generate the application
-└── using-schema        # use to generate the application
-
-backend
-├── api                 # Business logic and API
-└── database            # Database layer
-
-├─ database
-│  ├── csv_seed         # seed data
-│  ├── scripts          # db scripts
-│  └── sql              # SQL statements used by the db 
-
+├── backend
+│   ├── api             # Business logic and API
+│   └── database        # Database layer
+│       ├── csv_seed    # CSV seed data in schema form
+│       ├── scripts     # db scripts
+│       └── sql         # SQL statements used by the db scripts
+├── configure
+│   ├── csv_raw         # CSV source data
+│   ├── generate-schema # use to generate the schema from CSV source data
+│   ├── schema_csv      # CSV seed data in schema form
+│   ├── schema_json     # JSON data schema
+│   ├── using-csv       # use to generate the application, schema, and seed data
+│   └── using-schema    # use to generate the application, and seed data
 ├── docker              # docker scripts and helpers
 ├── frontend            # Presentation layer
 └── pgdata              # Database mount point, contains the DB data
@@ -99,18 +92,25 @@ db-stop
 ./docker/ui
 ```
 
-## Native
+## Native (depends on tmux / mise)
 
 ```sh
 # CAUTION: recursively search and remove node artifacts
-app-node-purge
+mise app-node-purge
 
 # Starts the db docker container, and runs the api and ui natively
 # (requires tmux)
-app-start
+./tmux/app-start
+
+# (requires mise and tmux)
+mise app-start
 
 # Stops the db docker container, and shutdown the api and ui
-app-stop
+# (requires tmux)
+./tmux/app-stop
+
+# (requires mise and tmux)
+mise app-stop
 ```
 
 ## UI Pages
@@ -129,14 +129,14 @@ app-stop
 ./docker/db-psql
 ```
 
-```sql
--- get tables
+```postgres
+--- get tables
 \dt
 -- get sequence tables
 \ds
 ```
 
-### Database Admin (adminer)
+### Database Admin (adminer)'
 
 <http://localhost:8080>
 
@@ -145,8 +145,3 @@ app-stop
 - Username postgres
 - Password password
 - Database postgres
-
-## Generated via the following templates
-
-- frontend: ng_20_0_3_mui
-- backend:  spring_boot_postgres

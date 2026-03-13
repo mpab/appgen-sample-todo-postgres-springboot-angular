@@ -12,7 +12,7 @@ tmux split-window -h
 tmux split-window -h
 tmux select-layout even-horizontal
 
-tmux send-keys -t "${DB}" "./docker/db-start" C-j
+./docker/db-start # not working in tmux, so run directly
 
 tmux send-keys -t "${API}" "cd ./backend/api" C-j
 tmux send-keys -t "${API}" "mise trust mise.toml" C-j
