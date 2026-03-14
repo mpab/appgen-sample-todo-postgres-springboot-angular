@@ -5,9 +5,8 @@ try () {
     "$@" || exit 1
 }
 
-try . appgen
+try appgen
 SCHEMA_DIR="${0%/*}/schema_json"
-
 # ensure seed data can be found
 "./${0%/*}/generate-schema"
 
@@ -33,7 +32,7 @@ try app-menu-add --menu=Status
 
 # create db table(s) and seed them (allow time for db to become available)
 try ./docker/db-start
-echo "waiting for backend..."
+echo "waiting for database..."
 sleep 10s
 try ./docker/db-seed
 try ./docker/db-stop
