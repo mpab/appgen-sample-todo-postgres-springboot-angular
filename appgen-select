@@ -1,1 +1,2 @@
-appgen-select-spring_boot_postgres-ng_20_0_3_mui
+(return 0 2>/dev/null) || { echo "$0: must be sourced"; exit 1; }
+. appgen-select-spring_boot_postgres-ng_20_0_3_mui
